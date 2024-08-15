@@ -1,0 +1,2 @@
+parameters:
+  dockerdns.pihole.api_token: "%env(resolve:DOCKERDNS_PIHOLE_API_TOKEN)%"

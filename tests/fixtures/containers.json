@@ -1,0 +1,136 @@
+[
+  {
+    "Id": "dae59015ea7d66ea927ecb75ee99d8381df4e8c17e127ffcb0c368bd0389396e",
+    "Names": ["/whoami"],
+    "Image": "traefik/whoami",
+    "ImageID": "sha256:ab0ca2603e47e42f7d45e094b6f4cecc5d5b7b0ef6ca89170ce1a771ed1a0066",
+    "Command": "/whoami --name=whoami",
+    "Created": 1723694166,
+    "Ports": [
+      { "IP": "0.0.0.0", "PrivatePort": 80, "PublicPort": 8080, "Type": "tcp" },
+      { "IP": "::", "PrivatePort": 80, "PublicPort": 8080, "Type": "tcp" }
+    ],
+    "Labels": {
+      "com.docker.compose.config-hash": "e6a4c370410588d55d5f893764133641d1c710bb9548e020056b0d267e2b61c6",
+      "com.docker.compose.container-number": "1",
+      "com.docker.compose.depends_on": "",
+      "com.docker.compose.image": "sha256:ab0ca2603e47e42f7d45e094b6f4cecc5d5b7b0ef6ca89170ce1a771ed1a0066",
+      "com.docker.compose.oneoff": "False",
+      "com.docker.compose.project": "docker-dns",
+      "com.docker.compose.project.config_files": "compose.yml",
+      "com.docker.compose.project.working_dir": "",
+      "com.docker.compose.service": "whoami",
+      "com.docker.compose.version": "2.29.1",
+      "org.opencontainers.image.created": "2024-05-07T15:42:29Z",
+      "org.opencontainers.image.description": "Tiny Go webserver that prints OS information and HTTP request to output",
+      "org.opencontainers.image.documentation": "https://github.com/traefik/whoami",
+      "org.opencontainers.image.revision": "dec1ed84e37648285d4ddfae911344483c77906b",
+      "org.opencontainers.image.source": "https://github.com/traefik/whoami",
+      "org.opencontainers.image.title": "whoami",
+      "org.opencontainers.image.url": "https://github.com/traefik/whoami",
+      "org.opencontainers.image.version": "1.10.2",
+      "pihole.cname.domain": "hello.home.lan",
+      "pihole.cname.target": "server.home.lan"
+    },
+    "State": "running",
+    "Status": "Up 59 minutes",
+    "HostConfig": { "NetworkMode": "docker-dns_default" },
+    "NetworkSettings": {
+      "Networks": {
+        "docker-dns_default": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "MacAddress": "02:42:ac:18:00:02",
+          "DriverOpts": null,
+          "NetworkID": "a60dc692f57d217195ad8b242c737a893b0ac319473636f87cd6e3e01c3fbfb4",
+          "EndpointID": "a1b65087a0f6be0809baf7c8adfea856bc4fece9eeeeb234de670972d122b317",
+          "Gateway": "172.24.0.1",
+          "IPAddress": "172.24.0.2",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "Mounts": []
+  },
+  {
+    "Id": "71682a978c402e4894342deef0f40b0edcfe8c9314e34ea6a45f3710c9dbca35",
+    "Names": ["/pihole"],
+    "Image": "pihole/pihole:latest",
+    "ImageID": "sha256:7e2c1211ec99de81cfa7dfe348e7b1373f1ec073f0b34ca270c3d28188ba75e2",
+    "Command": "/s6-init",
+    "Created": 1723693793,
+    "Ports": [
+      { "PrivatePort": 53, "Type": "tcp" },
+      { "PrivatePort": 53, "Type": "udp" },
+      { "PrivatePort": 67, "Type": "udp" },
+      { "IP": "0.0.0.0", "PrivatePort": 80, "PublicPort": 80, "Type": "tcp" },
+      { "IP": "::", "PrivatePort": 80, "PublicPort": 80, "Type": "tcp" }
+    ],
+    "Labels": {
+      "com.docker.compose.config-hash": "02300cb0d9067084dfe2878e651acf001e6da1cc7ce948ffa04e5567fb0338f2",
+      "com.docker.compose.container-number": "1",
+      "com.docker.compose.depends_on": "",
+      "com.docker.compose.image": "sha256:7e2c1211ec99de81cfa7dfe348e7b1373f1ec073f0b34ca270c3d28188ba75e2",
+      "com.docker.compose.oneoff": "False",
+      "com.docker.compose.project": "docker-dns",
+      "com.docker.compose.project.config_files": "compose.yml",
+      "com.docker.compose.project.working_dir": "/home/toni/code/docker-dns",
+      "com.docker.compose.service": "pihole",
+      "com.docker.compose.version": "2.29.1",
+      "org.opencontainers.image.created": "2024-07-05T18:19:25.777Z",
+      "org.opencontainers.image.description": "Pi-hole in a docker container",
+      "org.opencontainers.image.licenses": "NOASSERTION",
+      "org.opencontainers.image.revision": "4149693092ea364c7aab6c30ba0b308e4bc45716",
+      "org.opencontainers.image.source": "https://github.com/pi-hole/docker-pi-hole",
+      "org.opencontainers.image.title": "docker-pi-hole",
+      "org.opencontainers.image.url": "https://github.com/pi-hole/docker-pi-hole",
+      "org.opencontainers.image.version": "2024.07.0"
+    },
+    "State": "running",
+    "Status": "Up About an hour (healthy)",
+    "HostConfig": { "NetworkMode": "docker-dns_default" },
+    "NetworkSettings": {
+      "Networks": {
+        "docker-dns_default": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "MacAddress": "02:42:ac:18:00:03",
+          "DriverOpts": null,
+          "NetworkID": "a60dc692f57d217195ad8b242c737a893b0ac319473636f87cd6e3e01c3fbfb4",
+          "EndpointID": "4d8851c428e86f5a7b9d763ffb0874923454f9f7d99fbe05da20098dd77192dc",
+          "Gateway": "172.24.0.1",
+          "IPAddress": "172.24.0.3",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "var/docker/pihole/dnsmasq.d",
+        "Destination": "/etc/dnsmasq.d",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": "rprivate"
+      },
+      {
+        "Type": "bind",
+        "Source": "var/docker/pihole/etc",
+        "Destination": "/etc/pihole",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": "rprivate"
+      }
+    ]
+  }
+]

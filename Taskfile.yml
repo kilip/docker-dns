@@ -1,0 +1,27 @@
+---
+version: 3
+
+tasks:
+
+  compose:start:
+    desc: Start compose services
+    cmd: docker compose up -d
+
+  compose:stop:
+    desc: stop compose containers
+    cmd: docker compose stop
+
+  compose:rm:
+    desc: remove compose containers
+    cmd: docker compose rm --force
+
+  compose:recreate:
+    desc: recreate compose containers
+    cmds:
+      - task: compose:stop
+      - task: compose:rm
+      - task: compose:start
+
+  coverage:
+    desc: run phpunit with coverage text
+    cmd: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text

@@ -1,0 +1,23 @@
+---
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    environment:
+      WEBPASSWORD: admin
+    ports:
+      - 80:80
+    volumes:
+      - ./var/docker/pihole/etc:/etc/pihole
+      - ./var/docker/pihole/dnsmasq.d:/etc/dnsmasq.d
+
+  whoami:
+    container_name: whoami
+    image: traefik/whoami
+    command:
+      - --name=whoami
+    ports:
+      - 8080:80
+    labels:
+      pihole.cname.domain: hello.home.lan
+      pihole.cname.target: server.home.lan
