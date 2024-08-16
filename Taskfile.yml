@@ -2,6 +2,11 @@
 version: 3
 
 tasks:
+  deps:
+    desc: install dependencies
+    cmds:
+      - task -l
+      #- curl -fsSL https://goss.rocks/install | sudo sh
 
   compose:start:
     desc: Start compose services
@@ -25,3 +30,19 @@ tasks:
   coverage:
     desc: run phpunit with coverage text
     cmd: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text
+
+  build:
+    desc: build docker file
+    cmd: docker build -t docker-dns:testing .
+
+  goss:
+    desc: run goss test
+    cmds:
+      - task: build
+      - dgoss run -v /var/run/docker.sock:/var/run/docker.sock docker-dns:testing
+    env:
+      APP_ENV: prod
+      GOSS_FILE: ./docker/goss.yaml
+      GOSS_FILES_STRATEGY: cp
+      GOSS_OPTS: --sleep 5s --retry-timeout 60s --color --format documentation
+      GOSS_SLEEP: 2

@@ -1,0 +1,6 @@
+file:
+  /app/bin/start:
+    exists: true
+  /app/vendor:
+    exists: true
+    
