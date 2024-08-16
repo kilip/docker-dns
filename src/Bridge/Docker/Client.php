@@ -6,8 +6,10 @@ use GuzzleHttp\Client as GuzzleClient;
 
 class Client
 {
+    private GuzzleClient $guzzle;
+    
     public function __construct(
-        private ?GuzzleClient $guzzle = null
+        ?GuzzleClient $guzzle = null
     )
     {
         // @codeCoverageIgnoreStart

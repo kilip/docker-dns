@@ -29,8 +29,8 @@
       "org.opencontainers.image.title": "whoami",
       "org.opencontainers.image.url": "https://github.com/traefik/whoami",
       "org.opencontainers.image.version": "1.10.2",
-      "pihole.cname.domain": "hello.home.lan",
-      "pihole.cname.target": "server.home.lan"
+      "dockerdns.pihole.cname.domain": "whoami.home.lan",
+      "dockerdns.pihole.cname.target": "server.home.lan"
     },
     "State": "running",
     "Status": "Up 59 minutes",
@@ -89,7 +89,10 @@
       "org.opencontainers.image.source": "https://github.com/pi-hole/docker-pi-hole",
       "org.opencontainers.image.title": "docker-pi-hole",
       "org.opencontainers.image.url": "https://github.com/pi-hole/docker-pi-hole",
-      "org.opencontainers.image.version": "2024.07.0"
+      "org.opencontainers.image.version": "2024.07.0",
+      "dockerdns.pihole.cname.domain": "pihole.home.lan",
+      "dockerdns.pihole.cname.target": "server.home.lan"
+
     },
     "State": "running",
     "Status": "Up About an hour (healthy)",

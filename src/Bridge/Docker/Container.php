@@ -10,6 +10,7 @@ class Container
 {
     /**
      * @param array<string,int|string|bool|float> $labels
+     * @param array<int,string> $names
      */
     public function __construct(
         public string $id,
@@ -21,6 +22,12 @@ class Container
         public array $labels,
     )
     {
+    }
+
+    public function getName(): string
+    {
+        $name = $this->names[0];
+        return trim($name, '/');
     }
 
     public function hasLabel(string $label): bool

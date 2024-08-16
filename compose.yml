@@ -10,6 +10,9 @@ services:
     volumes:
       - ./var/docker/pihole/etc:/etc/pihole
       - ./var/docker/pihole/dnsmasq.d:/etc/dnsmasq.d
+    labels:
+      dockerdns.pihole.cname.domain: pihole.home.lan
+      dockerdns.pihole.cname.target: server.home.lan
 
   whoami:
     container_name: whoami
@@ -19,5 +22,5 @@ services:
     ports:
       - 8080:80
     labels:
-      pihole.cname.domain: hello.home.lan
-      pihole.cname.target: server.home.lan
+      dockerdns.pihole.cname.domain: whoami.home.lan
+      dockerdns.pihole.cname.target: server.home.lan
