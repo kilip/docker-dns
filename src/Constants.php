@@ -1,10 +1,18 @@
 <?php
 
+/*
+ * This file is part of the DockerDNS project.
+ *
+ * (c) Anthonius Munthi <me@itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DockerDNS;
 
 class Constants
 {
-    const UPDATE_START = 'dockerdns.update.start';
-    const UPDATE_END = 'dockerdns.update.end';
-    const PROCESS_CONTAINER = 'dockerdns.process.container';
+    public const EVENT_START = 'dockerdns.core.start';
+    public const EVENT_END = 'dockerdns.core.end';
 }

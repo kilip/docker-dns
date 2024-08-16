@@ -1,16 +1,21 @@
 <?php
 
-namespace DockerDNS\Bridge\Docker;
+/*
+ * This file is part of the DockerDNS project.
+ *
+ * (c) Anthonius Munthi <me@itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+namespace DockerDNS\Bridge\Docker\DTO;
 
 class Container
 {
     /**
      * @param array<string,int|string|bool|float> $labels
-     * @param array<int,string> $names
+     * @param array<int,string>                   $names
      */
     public function __construct(
         public string $id,
@@ -20,13 +25,13 @@ class Container
         public int $created,
         public array $ports,
         public array $labels,
-    )
-    {
+    ) {
     }
 
     public function getName(): string
     {
         $name = $this->names[0];
+
         return trim($name, '/');
     }
 
@@ -40,7 +45,7 @@ class Container
      */
     public function getLabelValue(string $label, $default = null): mixed
     {
-        if($this->hasLabel($label)){
+        if ($this->hasLabel($label)) {
             return $this->labels[$label];
         }
 

@@ -1,8 +1,16 @@
 <?php
 
+/*
+ * This file is part of the DockerDNS project.
+ *
+ * (c) Anthonius Munthi <me@itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DockerDNS\Bridge\Pihole\DTO;
 
-use DockerDNS\Bridge\Pihole\Pihole;
 use DockerDNS\Bridge\Pihole\PiholeException;
 
 class CNameCollection
@@ -12,8 +20,7 @@ class CNameCollection
      */
     public function __construct(
         public array $cnames
-    )
-    {
+    ) {
     }
 
     public static function fromJson(string $json): static
@@ -21,7 +28,7 @@ class CNameCollection
         $data = json_decode($json, true)['data'];
 
         $cnames = [];
-        foreach($data as $record){
+        foreach ($data as $record) {
             $domain = $record[0];
             $target = $record[1];
             $cnames[$domain] = new CName(
@@ -40,7 +47,7 @@ class CNameCollection
 
     public function remove(string $domain): void
     {
-        if($this->hasDomain($domain)){
+        if ($this->hasDomain($domain)) {
             unset($this->cnames[$domain]);
         }
 
@@ -49,7 +56,7 @@ class CNameCollection
 
     public function get(string $domain): CName
     {
-        if($this->hasDomain($domain)){
+        if ($this->hasDomain($domain)) {
             return $this->cnames[$domain];
         }
         throw PiholeException::cnameRecordNotExists($domain);

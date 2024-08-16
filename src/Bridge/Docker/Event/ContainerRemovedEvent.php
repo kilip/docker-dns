@@ -9,11 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace DockerDNS\Bridge\Docker;
+namespace DockerDNS\Bridge\Docker\Event;
 
-class Docker
+use DockerDNS\Bridge\Docker\Entity\Container;
+
+class ContainerRemovedEvent
 {
-    public const EVENT_PROCESS = 'dockerdns.docker.process';
-    public const EVENT_CLEANUP = 'dockerdns.docker.cleanup';
-    public const EVENT_CONTAINER_REMOVED = 'dockerdns.docker.removed';
+    public function __construct(
+        public Container $container
+    ) {
+    }
 }

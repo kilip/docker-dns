@@ -1,14 +1,18 @@
 <?php
 
+/*
+ * This file is part of the DockerDNS project.
+ *
+ * (c) Anthonius Munthi <me@itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DockerDNS\Tests\Bridge\Docker;
 
-use GuzzleHttp\Client as GuzzleClient;
 use DockerDNS\Bridge\Docker\Client;
-use DockerDNS\Bridge\Docker\Containers;
 use DockerDNS\Tests\Fixtures;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
@@ -18,7 +22,6 @@ class ClientTest extends TestCase
         $guzzle = Fixtures::getDockerContainers();
         $client = new Client($guzzle);
         $containers = $client->getContainers();
-        $this->assertInstanceOf(Containers::class, $containers);
         $this->assertCount(2, $containers);
     }
 }

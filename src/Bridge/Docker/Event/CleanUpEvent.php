@@ -9,13 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace DockerDNS\Bridge\Pihole\DTO;
+namespace DockerDNS\Bridge\Docker\Event;
 
-class CName
+use DockerDNS\Bridge\Docker\DTO\Container;
+
+class CleanUpEvent
 {
+    /**
+     * @param array<string, Container> $containers
+     */
     public function __construct(
-        public string $domain,
-        public string $target
+        public array $containers
     ) {
     }
 }

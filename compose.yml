@@ -24,3 +24,7 @@ services:
     labels:
       dockerdns.pihole.cname.domain: whoami.home.lan
       dockerdns.pihole.cname.target: server.home.lan
+      dockerdns.pihole.cname.0.domain: whoami1.home.lan
+      dockerdns.pihole.cname.0.target: server.home.lan
+      dockerdns.pihole.cname.1.domain: whoami2.home.lan
+      dockerdns.pihole.cname.1.target: server.home.lan
