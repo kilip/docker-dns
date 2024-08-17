@@ -9,8 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace DockerDNS\Bridge\Pihole\DTO;
+namespace DockerDNS\Bridge\Pihole;
 
+use DockerDNS\Bridge\Pihole\DTO\CName;
+use DockerDNS\Bridge\Pihole\DTO\CNameCollection;
 use GuzzleHttp\Client as GuzzleClient;
 
 class Server
@@ -23,11 +25,13 @@ class Server
         ?string $name = null,
         private ?GuzzleClient $guzzle = null
     ) {
+        // @codeCoverageIgnoreStart
         if (is_null($this->guzzle)) {
             $this->guzzle = new GuzzleClient([
                 'base_uri' => $url.'/admin/api.php',
             ]);
         }
+        // @codeCoverageIgnoreEnd
 
         if (is_null($name)) {
             $parsed = parse_url($url);

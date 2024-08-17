@@ -16,6 +16,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\AbstractExtension;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class PiholeExtension extends AbstractExtension
 {
     private function configureServers(ContainerConfigurator $container): void

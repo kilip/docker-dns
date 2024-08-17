@@ -26,7 +26,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 class ContainerRemovedListener
 {
     public function __construct(
-        private ServerRegistry $registry,
+        private ServerRegistry $servers,
         private CNameRepository $repository,
         private LoggerInterface $logger
     ) {
@@ -36,13 +36,13 @@ class ContainerRemovedListener
     {
         $container = $event->container;
         $logger = $this->logger;
-        $servers = $this->registry->servers;
+        $servers = $this->servers;
         $repository = $this->repository;
         $items = $repository->findByContainer($container->containerId);
 
         /** @var CName $item */
         foreach ($items as $item) {
-            foreach ($servers as $server) {
+            foreach ($servers->getAll() as $server) {
                 $dto = new CNameDTO($item->domain, $item->target);
                 $server->removeCName($dto);
                 $logger->notice('{0}: removed container {1} domain: {2} target: {3}', [

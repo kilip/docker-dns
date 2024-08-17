@@ -13,7 +13,10 @@ namespace DockerDNS\Bridge\Pihole\DTO;
 
 use DockerDNS\Bridge\Pihole\PiholeException;
 
-class CNameCollection
+/**
+ * @implements \ArrayAccess<string, CName>
+ */
+class CNameCollection implements \ArrayAccess
 {
     /**
      * @param array<int, CName> $cnames
@@ -21,6 +24,26 @@ class CNameCollection
     public function __construct(
         public array $cnames
     ) {
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return array_key_exists($offset, $this->cnames);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->cnames[$offset];
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->cnames[$offset] = $value;
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        unset($this->cnames[$offset]);
     }
 
     public static function fromJson(string $json): CNameCollection
@@ -42,22 +65,22 @@ class CNameCollection
 
     public function hasDomain(string $domain): bool
     {
-        return array_key_exists($domain, $this->cnames);
+        return $this->offsetExists($domain);
     }
 
     public function remove(string $domain): void
     {
-        if ($this->hasDomain($domain)) {
-            unset($this->cnames[$domain]);
+        if (!$this->hasDomain($domain)) {
+            throw PiholeException::cnameRecordNotExists($domain);
         }
 
-        throw PiholeException::cnameRecordNotExists($domain);
+        unset($this[$domain]);
     }
 
     public function get(string $domain): CName
     {
         if ($this->hasDomain($domain)) {
-            return $this->cnames[$domain];
+            return $this[$domain];
         }
         throw PiholeException::cnameRecordNotExists($domain);
     }

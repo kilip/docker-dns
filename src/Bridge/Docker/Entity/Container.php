@@ -11,9 +11,10 @@
 
 namespace DockerDNS\Bridge\Docker\Entity;
 
+use DockerDNS\Bridge\Docker\Repository\ContainerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity()]
+#[ORM\Entity(repositoryClass: ContainerRepository::class)]
 #[ORM\Table(name: 'docker_containers')]
 class Container
 {
