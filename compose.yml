@@ -2,7 +2,7 @@
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: pihole/pihole:latest@sha256:0def896a596e8d45780b6359dbf82fc8c75ef05b97e095452e67a0a4ccc95377
     environment:
       WEBPASSWORD: admin
     ports:
@@ -16,7 +16,7 @@ services:
 
   whoami:
     container_name: whoami
-    image: traefik/whoami
+    image: traefik/whoami@sha256:1474027c316661cdec87df2623e13a41e7e1ce0ba99c24917631de8f300b5420
     command:
       - --name=whoami
     ports:
