@@ -6,8 +6,6 @@ on:
 
 env:
   COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  DATABASE_URL: postgres://crank:crank@localhost/crank
-  PGPASSWORD: crank
 
 jobs:
   phpunit:
@@ -30,15 +28,9 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: pecl, composer
-          extensions: intl, bcmath, curl, openssl, mbstring, pdo_pgsql
+          extensions: intl, bcmath, curl, openssl, mbstring, pdo_pgsql, sqlite3
           coverage: pcov
           ini-values: memory_limit=-1
-      - name: Setup postgres
-        run: |
-          sudo systemctl start postgresql
-          sudo -u postgres psql -d template1 -c "CREATE USER crank WITH PASSWORD 'crank' CREATEDB"
-          createdb -h localhost -p 5432 -U crank crank_test
-          pg_isready -d crank_test -h localhost -p 5432 -U crank
       - name: Get composer cache directory
         id: composercache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -54,6 +46,8 @@ jobs:
         run: mkdir -p build/logs/phpunit
       - name: Clear test app cache
         run: ./bin/console cache:clear --ansi --env=test
+      - name: Create database schema
+        run: ./bin/console doctrine:schema:create
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --log-junit build/logs/phpunit/junit.xml ${{ matrix.coverage && '--coverage-clover build/logs/phpunit/clover.xml' || '' }}
       - name: Upload test artifacts

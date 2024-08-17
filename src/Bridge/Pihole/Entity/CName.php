@@ -11,10 +11,12 @@
 
 namespace DockerDNS\Bridge\Pihole\Entity;
 
+use DockerDNS\Bridge\Pihole\Repository\CNameRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity()]
+#[ORM\Entity(repositoryClass: CNameRepository::class)]
 #[ORM\Table(name: 'pihole_cname')]
+#[ORM\UniqueConstraint('cname', ['domain', 'target'])]
 class CName
 {
     #[ORM\Id]

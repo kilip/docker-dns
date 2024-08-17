@@ -28,5 +28,14 @@ class ClientTest extends TestCase
         $client = new Client($guzzle);
         $containers = $client->getContainers();
         $this->assertCount(2, $containers);
+
+        $key = 'dae59015ea7d66ea927ecb75ee99d8381df4e8c17e127ffcb0c368bd0389396e';
+        $this->assertArrayHasKey($key, $containers);
+        $container = $containers[$key];
+
+        $this->assertSame('whoami', $container->getName());
+        $this->assertTrue($container->hasLabel($label = 'dockerdns.pihole.cname.domain'));
+        $this->assertSame('whoami.home.lan', $container->getLabelValue($label));
+        $this->assertSame('foobar', $container->getLabelValue('foo', 'foobar'));
     }
 }

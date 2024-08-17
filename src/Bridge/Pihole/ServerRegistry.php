@@ -11,15 +11,17 @@
 
 namespace DockerDNS\Bridge\Pihole;
 
-use DockerDNS\Bridge\Pihole\DTO\Server;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-class ServerRegistry
+/**
+ * @implements \ArrayAccess<int, Server>
+ */
+class ServerRegistry implements \ArrayAccess, \Countable
 {
     /**
      * @var array<int, Server>
      */
-    public array $servers = [];
+    private array $servers = [];
 
     /**
      * @param array<int, array<string,string>> $servers
@@ -34,5 +36,38 @@ class ServerRegistry
                 $definition['token']
             );
         }
+    }
+
+    public function count(): int
+    {
+        return count($this->servers);
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return array_key_exists($offset, $this->servers);
+    }
+
+    public function offsetGet(mixed $offset): Server
+    {
+        return $this->servers[$offset];
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->servers[$offset] = $value;
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        unset($this->servers[$offset]);
+    }
+
+    /**
+     * @return array<int, Server>
+     */
+    public function getAll(): array
+    {
+        return $this->servers;
     }
 }

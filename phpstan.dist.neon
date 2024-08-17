@@ -14,3 +14,6 @@ parameters:
     bootstrapFiles:
         - vendor/autoload.php
         - src/Kernel.php
+    ignoreErrors:
+        - message: '#unknown parameter: .*#'
+          path: src/Bridge/Docker/Serializer/*

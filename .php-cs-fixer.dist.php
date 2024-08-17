@@ -11,7 +11,8 @@ HEADER;
 
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
-    ->exclude('var');
+    ->exclude('var')
+    ->exclude('src/Bridge/Docker/Serializer');
 
 return (new PhpCsFixer\Config())
     ->setRules([

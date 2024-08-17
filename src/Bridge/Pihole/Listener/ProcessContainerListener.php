@@ -11,11 +11,11 @@
 
 namespace DockerDNS\Bridge\Pihole\Listener;
 
-use DockerDNS\Bridge\Docker\DTO\Container;
+use DockerDNS\Bridge\Docker\DTO\Container as ContainerDTO;
 use DockerDNS\Bridge\Docker\Docker;
-use DockerDNS\Bridge\Pihole\DTO\Server;
 use DockerDNS\Bridge\Pihole\Pihole;
 use DockerDNS\Bridge\Pihole\Repository\CNameRepository;
+use DockerDNS\Bridge\Pihole\Server;
 use DockerDNS\Bridge\Pihole\ServerRegistry;
 use Monolog\Attribute\WithMonologChannel;
 use Psr\Log\LoggerInterface;
@@ -26,22 +26,20 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 class ProcessContainerListener
 {
     public function __construct(
-        private ServerRegistry $registry,
+        private ServerRegistry $servers,
         private CNameRepository $repository,
         private LoggerInterface $logger
     ) {
     }
 
-    public function __invoke(Container $container): void
+    public function __invoke(ContainerDTO $container): void
     {
-        if ($container->hasLabel(Pihole::LABEL_CNAME_DOMAIN)) {
-            $this->process($container);
-        }
+        $this->process($container);
     }
 
-    private function process(Container $container): void
+    private function process(ContainerDTO $container): void
     {
-        $servers = $this->registry->servers;
+        $servers = $this->servers;
         $targets = [];
 
         if ($container->hasLabel(Pihole::LABEL_CNAME_DOMAIN) && $container->hasLabel(Pihole::LABEL_CNAME_TARGET)) {
@@ -69,13 +67,13 @@ class ProcessContainerListener
 
         foreach ($targets as $definition) {
             list($domain, $target) = $definition;
-            foreach ($servers as $server) {
+            foreach ($servers->getAll() as $server) {
                 $this->processServer($server, $container, $domain, $target);
             }
         }
     }
 
-    private function processServer(Server $server, Container $container, string $domain, string $target): void
+    private function processServer(Server $server, ContainerDTO $container, string $domain, string $target): void
     {
         $logger = $this->logger;
         $cnames = $server->getCNames();
