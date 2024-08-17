@@ -68,7 +68,7 @@ class Client
         $serializer = new Serializer($normalizers, $encoders);
 
         /** @var array<int, Container> $containers */
-        $containers = $serializer->deserialize($json, Container::class . '[]', 'json');
+        $containers = $serializer->deserialize($json, Container::class.'[]', 'json');
 
         $mapped = [];
         foreach ($containers as $container) {

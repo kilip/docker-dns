@@ -15,6 +15,11 @@ use DockerDNS\Bridge\Docker\Client;
 use DockerDNS\Tests\Fixtures;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \DockerDNS\Bridge\Docker\Client
+ * @covers \DockerDNS\Bridge\Docker\Serializer\PropertyNameConverter
+ * @covers \DockerDNS\Bridge\Docker\DTO\Container
+ */
 class ClientTest extends TestCase
 {
     public function testConnection(): void

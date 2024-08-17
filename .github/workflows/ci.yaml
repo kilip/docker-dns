@@ -1,0 +1,41 @@
+---
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  check:
+    name: Static Check
+    uses: kilip/docker-dns/.github/workflows/check.yaml@main
+    secrets: inherit
+
+  test:
+    name: Testing
+    needs: ["check"]
+    if: ${{ needs.check.result != 'failure' }}
+    uses: kilip/docker-dns/.github/workflows/test.yaml@main
+    secrets: inherit
+
+  build-images:
+    name: Build
+    needs: ["test"]
+    if: ${{ needs.test.result != 'failure' && github.event_name != 'pull_request' }}
+    uses: "kilip/docker-dns/.github/workflows/build-image.yaml@main"
+    secrets: inherit
+    permissions:
+      contents: write
+      packages: write

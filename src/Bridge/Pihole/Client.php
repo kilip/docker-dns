@@ -43,6 +43,9 @@ class Client
         return $guzzle;
     }
 
+    /**
+     * @return array<int, array<string,string>>
+     */
     public function getCustomDNS(): array
     {
         $guzzle = $this->guzzle;

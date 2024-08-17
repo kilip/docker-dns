@@ -39,7 +39,7 @@ class ContainerRepository extends ServiceEntityRepository
         $container->labels = $dto->labels;
 
         $this->getEntityManager()->persist($container);
-        $this->getEntityManager()->flush($container);
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Container $container): void

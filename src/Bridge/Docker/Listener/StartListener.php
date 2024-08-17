@@ -31,9 +31,10 @@ class StartListener
         private EventDispatcherInterface $dispatcher,
         private LoggerInterface $logger,
         private DockerClient $docker
-    ) {}
+    ) {
+    }
 
-    public function __invoke()
+    public function __invoke(): void
     {
         $dispatcher = $this->dispatcher;
         $containers = $this->docker->getContainers();

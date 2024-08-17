@@ -13,7 +13,7 @@ namespace DockerDNS\Bridge\Docker\Listener;
 
 use DockerDNS\Bridge\Docker\Docker;
 use DockerDNS\Bridge\Docker\Entity\Container;
-use DockerDNS\Bridge\Docker\Event\CleanupEvent;
+use DockerDNS\Bridge\Docker\Event\CleanUpEvent;
 use DockerDNS\Bridge\Docker\Event\ContainerRemovedEvent;
 use DockerDNS\Bridge\Docker\Repository\ContainerRepository;
 use Monolog\Attribute\WithMonologChannel;
@@ -29,9 +29,10 @@ class CleanUpListener
         private ContainerRepository $repository,
         private EventDispatcherInterface $dispatcher,
         private LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
-    public function __invoke(CleanupEvent $event)
+    public function __invoke(CleanUpEvent $event): void
     {
         $repository = $this->repository;
         $dispatcher = $this->dispatcher;

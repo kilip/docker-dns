@@ -2,14 +2,15 @@
 name: "Build Image"
 
 on:
+  workflow_call:
   workflow_dispatch:
-  push:
-    branches: ["main"]
 
 jobs:
   build-and-test:
     name: Build and test
     runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE: ghcr.io/${{ github.repository }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,9 +22,19 @@ jobs:
         run: |-
           echo "build_date=$(date --rfc-3339=seconds --utc)" >> $GITHUB_OUTPUT
           echo "goss_args=tail -f /dev/null" >> $GITHUB_OUTPUT
-          echo "tag_version=docker-dns:latest" >> $GITHUB_OUTPUT
-          echo "tag_testing=docker-dns:testingz" >> $GITHUB_OUTPUT
-          echo "tag_rolling=docker-dns:rolling" >> $GITHUB_OUTPUT
+          echo "tag_testing=testingz" >> $GITHUB_OUTPUT
+          echo "tag_rolling=rolling" >> $GITHUB_OUTPUT
+
+          date=$(date +'%Y%m%d%H%M%S')
+          ref="${{ github.ref_name }}"
+          tag_version="daily${date}"
+          tags="${{ env.DOCKER_IMAGE }}:${tag_version}"
+          if [[ $ref == v* ]]; then
+            tag_version="${{ github.ref_name }}"
+            tags="${{ env.DOCKER_IMAGE }}:${tag_version},${{env.DOCKER_IMAGE}}:latest"
+          fi
+          echo "tag_version=${tag_version}" >> $GITHUB_OUTPUT
+          echo "tags=${tags}" >> $GITHUB_OUTPUT
 
       - name: Setup Goss
         uses: e1himself/goss-installation-action@v1.2.1
@@ -50,9 +61,9 @@ jobs:
           build-args: |-
             VERSION=latest
           context: .
-          platforms: linux/amd64 # load does not support muti-arch https://github.com/docker/buildx/issues/290
+          platforms: linux/amd64
           load: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ steps.vars.outputs.tag_testing }}
+          tags: ${{ env.DOCKER_IMAGE }}:testingz
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -66,29 +77,25 @@ jobs:
           GOSS_SLEEP: 2
           GOSS_FILES_STRATEGY: cp
           CONTAINER_LOG_OUTPUT: goss_container_log_output
-        run: dgoss run ghcr.io/${{ github.repository_owner }}/${{ steps.vars.outputs.tag_testing }} ${{ steps.vars.outputs.goss_args }}
+        run: dgoss run ${{ env.DOCKER_IMAGE }} ${{ steps.vars.outputs.goss_args }}
 
       - name: Build all platforms
         id: release
         uses: docker/build-push-action@v6
         with:
-          build-args: |-
-            VERSION=${{ steps.vars.outputs.tag_version }}
-            CHANNEL=stable
           labels: |-
-            ${{ steps.vars.outputs.chan_label_type }}.created="${{ steps.vars.outputs.build_date }}"
-            ${{ steps.vars.outputs.chan_label_type }}.title="docker-dns (stable)"
-            ${{ steps.vars.outputs.chan_label_type }}.version="${{ steps.vars.outputs.tag_version }}"
-            ${{ steps.vars.outputs.chan_label_type }}.authors="Anthonius Munthi <me@itstoni.com>"
-            ${{ steps.vars.outputs.chan_label_type }}.url="https://github.com/kilip/docker-dns"
-            ${{ steps.vars.outputs.chan_label_type }}.build.url="https://github.com/kilip/docker-dns/actions/runs/${{ github.run_id }}"
-            ${{ steps.vars.outputs.chan_label_type }}.documentation="https://github.com/kilip/docker-dns/README.md"
-            ${{ steps.vars.outputs.chan_label_type }}.revision="${{ github.sha }}"
+            org.opencontainers.image.created="${{ steps.vars.outputs.build_date }}"
+            org.opencontainers.image.title="docker-dns (stable)"
+            org.opencontainers.image.version="${{ steps.vars.outputs.tag_version }}"
+            org.opencontainers.image.authors="Anthonius Munthi <me@itstoni.com>"
+            org.opencontainers.image.url="https://github.com/kilip/docker-dns"
+            org.opencontainers.image.build.url="https://github.com/kilip/docker-dns/actions/runs/${{ github.run_id }}"
+            org.opencontainers.image.documentation="https://github.com/kilip/docker-dns/README.md"
+            org.opencontainers.image.revision="${{ github.sha }}"
           context: .
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |-
-            ghcr.io/${{ github.repository_owner }}/${{ steps.vars.outputs.tag_rolling }}
-            ghcr.io/${{ github.repository_owner }}/${{ steps.vars.outputs.tag_version }}
+            ${{ steps.vars.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

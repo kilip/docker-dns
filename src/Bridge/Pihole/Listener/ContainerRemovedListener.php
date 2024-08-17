@@ -1,11 +1,20 @@
 <?php
 
+/*
+ * This file is part of the DockerDNS project.
+ *
+ * (c) Anthonius Munthi <me@itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DockerDNS\Bridge\Pihole\Listener;
 
 use DockerDNS\Bridge\Docker\Docker;
 use DockerDNS\Bridge\Docker\Event\ContainerRemovedEvent;
-use DockerDNS\Bridge\Pihole\Entity\CName;
 use DockerDNS\Bridge\Pihole\DTO\CName as CNameDTO;
+use DockerDNS\Bridge\Pihole\Entity\CName;
 use DockerDNS\Bridge\Pihole\Repository\CNameRepository;
 use DockerDNS\Bridge\Pihole\ServerRegistry;
 use Monolog\Attribute\WithMonologChannel;
@@ -16,12 +25,12 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 #[WithMonologChannel('pihole')]
 class ContainerRemovedListener
 {
-
     public function __construct(
         private ServerRegistry $registry,
         private CNameRepository $repository,
         private LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
     public function __invoke(ContainerRemovedEvent $event): void
     {
@@ -45,6 +54,6 @@ class ContainerRemovedListener
             }
         }
 
-        $repository->remove($container->id);
+        $repository->remove($container->containerId);
     }
 }

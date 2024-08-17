@@ -29,7 +29,7 @@ tasks:
 
   coverage:
     desc: run phpunit with coverage text
-    cmd: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text
+    cmd: ./vendor/bin/phpunit --coverage-text
 
   build:
     desc: build docker file
@@ -46,3 +46,5 @@ tasks:
       GOSS_FILES_STRATEGY: cp
       GOSS_OPTS: --sleep 5s --retry-timeout 60s --color --format documentation
       GOSS_SLEEP: 2
+      DOCKERDNS_PIHOLE_URL: http://localhost
+      DOCKERDNS_PIHOLE_TOKEN: 998ed4d621742d0c2d85ed84173db569afa194d4597686cae947324aa58ab4bb

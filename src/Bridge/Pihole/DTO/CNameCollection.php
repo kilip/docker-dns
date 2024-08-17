@@ -23,7 +23,7 @@ class CNameCollection
     ) {
     }
 
-    public static function fromJson(string $json): static
+    public static function fromJson(string $json): CNameCollection
     {
         $data = json_decode($json, true)['data'];
 
@@ -37,7 +37,7 @@ class CNameCollection
             );
         }
 
-        return new static($cnames);
+        return new CNameCollection($cnames);
     }
 
     public function hasDomain(string $domain): bool

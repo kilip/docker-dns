@@ -14,21 +14,22 @@ namespace DockerDNS\Tests\Bridge\Docker\Listener;
 use DockerDNS\Bridge\Docker\Client as DockerClient;
 use DockerDNS\Bridge\Docker\DTO\Container;
 use DockerDNS\Bridge\Docker\Docker;
-use DockerDNS\Bridge\Docker\Event\CleanupEvent;
+use DockerDNS\Bridge\Docker\Event\CleanUpEvent;
 use DockerDNS\Bridge\Docker\Listener\StartListener;
 use DockerDNS\Bridge\Docker\Repository\ContainerRepository;
 use DockerDNS\Tests\Fixtures;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class StartListenerTest extends TestCase
 {
-    private ContainerRepository $repository;
-    private EventDispatcherInterface $dispatcher;
-    private LoggerInterface $logger;
-    private DockerClient $docker;
-    private StartListener $listener;
+    private MockObject|ContainerRepository $repository;
+    private MockObject|EventDispatcherInterface $dispatcher;
+    private MockObject|LoggerInterface $logger;
+    private MockObject|DockerClient $docker;
+    private MockObject|StartListener $listener;
 
     protected function setUp(): void
     {
@@ -61,7 +62,7 @@ class StartListenerTest extends TestCase
             ->withConsecutive(
                 [$this->isInstanceOf(Container::class), Docker::EVENT_PROCESS],
                 [$this->isInstanceOf(Container::class), Docker::EVENT_PROCESS],
-                [$this->isInstanceOf(CleanupEvent::class), Docker::EVENT_CLEANUP],
+                [$this->isInstanceOf(CleanUpEvent::class), Docker::EVENT_CLEANUP],
             )
         ;
 

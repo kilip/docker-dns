@@ -31,13 +31,12 @@ class StartCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         pcntl_async_signals(true);
-        $needsToRun = true;
-        pcntl_signal(SIGTERM, function () use ($needsToRun) {
-            $needsToRun = false;
+        $event = new UpdateEvent();
+        pcntl_signal(SIGTERM, function () use (&$event) {
+            $event->interrupt = true;
         });
 
-        $event = new UpdateEvent();
-        while ($needsToRun) {
+        while (!$event->interrupt) {
             try {
                 $this->dispatcher->dispatch($event, Constants::EVENT_START);
             } catch (\Exception $e) {

@@ -14,8 +14,9 @@ namespace DockerDNS\Bridge\Docker\DTO;
 class Container
 {
     /**
-     * @param array<string,int|string|bool|float> $labels
-     * @param array<int,string>                   $names
+     * @param array<string, string> $labels
+     * @param array<int,string>     $names
+     * @param array<string,mixed>   $ports
      */
     public function __construct(
         public string $id,
@@ -43,7 +44,7 @@ class Container
     /**
      * @return string|int|bool|float
      */
-    public function getLabelValue(string $label, $default = null): mixed
+    public function getLabelValue(string $label, mixed $default = null): mixed
     {
         if ($this->hasLabel($label)) {
             return $this->labels[$label];

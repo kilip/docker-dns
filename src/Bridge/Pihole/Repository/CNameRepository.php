@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the DockerDNS project.
+ *
+ * (c) Anthonius Munthi <me@itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DockerDNS\Bridge\Pihole\Repository;
 
 use DockerDNS\Bridge\Pihole\Entity\CName;
@@ -24,15 +33,15 @@ class CNameRepository extends ServiceEntityRepository
         return $this->findBy(['containerId' => $containerId]);
     }
 
-    public function findByDomainAndTarget($domain, $target): ?CName
+    public function findByDomainAndTarget(string $domain, string $target): ?CName
     {
         return $this->findOneBy([
             'domain' => $domain,
-            'target' => $target
+            'target' => $target,
         ]);
     }
 
-    public function update(string $containerId, $domain, $target): void
+    public function update(string $containerId, string $domain, string $target): void
     {
         $cname = $this->findByDomainAndTarget($domain, $target);
         if (is_null($cname)) {
@@ -46,7 +55,7 @@ class CNameRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function remove(string $containerId, string $domain = null, string $target = null): void
+    public function remove(string $containerId, ?string $domain = null, ?string $target = null): void
     {
         $filters['containerId'] = $containerId;
         if (!is_null($domain)) {

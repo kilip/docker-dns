@@ -51,6 +51,9 @@ class PiholeExtension extends AbstractExtension
     {
     }
 
+    /**
+     * @param array<string,mixed> $config
+     */
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $this->configureServers($container);

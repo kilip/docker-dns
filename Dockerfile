@@ -1,5 +1,6 @@
 FROM php:8.3-fpm-alpine
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache --virtual \
 	acl \
 	file \

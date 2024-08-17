@@ -25,7 +25,7 @@ class Server
     ) {
         if (is_null($this->guzzle)) {
             $this->guzzle = new GuzzleClient([
-                'base_uri' => $url . '/admin/api.php',
+                'base_uri' => $url.'/admin/api.php',
             ]);
         }
 

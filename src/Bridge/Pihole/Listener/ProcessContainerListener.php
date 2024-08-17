@@ -25,19 +25,12 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 #[WithMonologChannel('pihole')]
 class ProcessContainerListener
 {
-    /**
-     * @var array<int, Server>
-     */
-    private array $servers = [];
-
-    /**
-     * @param array<int,array> $servers
-     */
     public function __construct(
         private ServerRegistry $registry,
         private CNameRepository $repository,
         private LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
     public function __invoke(Container $container): void
     {
@@ -54,7 +47,7 @@ class ProcessContainerListener
         if ($container->hasLabel(Pihole::LABEL_CNAME_DOMAIN) && $container->hasLabel(Pihole::LABEL_CNAME_TARGET)) {
             $targets[] = [
                 $container->getLabelValue(Pihole::LABEL_CNAME_DOMAIN),
-                $container->getLabelValue(Pihole::LABEL_CNAME_TARGET)
+                $container->getLabelValue(Pihole::LABEL_CNAME_TARGET),
             ];
         }
 
@@ -66,9 +59,9 @@ class ProcessContainerListener
             if ($container->hasLabel($labelDomain) && $container->hasLabel($labelTarget)) {
                 $targets[] = [
                     $container->getLabelValue($labelDomain),
-                    $container->getLabelValue($labelTarget)
+                    $container->getLabelValue($labelTarget),
                 ];
-                $index++;
+                ++$index;
             } else {
                 $process = false;
             }
@@ -82,7 +75,7 @@ class ProcessContainerListener
         }
     }
 
-    private function processServer(Server $server, Container $container, $domain, $target): void
+    private function processServer(Server $server, Container $container, string $domain, string $target): void
     {
         $logger = $this->logger;
         $cnames = $server->getCNames();
@@ -109,7 +102,7 @@ class ProcessContainerListener
             $logger->notice('{0}: added cname domain: {1} target: {2}', [
                 $server->name,
                 $domain,
-                $target
+                $target,
             ]);
         }
         $repository->update($container->id, $domain, $target);

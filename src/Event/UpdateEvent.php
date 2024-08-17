@@ -13,4 +13,8 @@ namespace DockerDNS\Event;
 
 class UpdateEvent
 {
+    public function __construct(
+        public bool $interrupt = false
+    ) {
+    }
 }

@@ -28,6 +28,9 @@ class Container
     #[ORM\Column(type: 'string')]
     public string $name;
 
+    /**
+     * @var array<string,string>
+     */
     #[ORM\Column(type: 'array')]
     public array $labels;
 }
