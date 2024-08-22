@@ -16,7 +16,7 @@ services:
 
   whoami:
     container_name: whoami
-    image: traefik/whoami@sha256:1474027c316661cdec87df2623e13a41e7e1ce0ba99c24917631de8f300b5420
+    image: traefik/whoami@sha256:43a68d10b9dfcfc3ffbfe4dd42100dc9aeaf29b3a5636c856337a5940f1b4f1c
     command:
       - --name=whoami
     ports:
