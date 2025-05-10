@@ -19,7 +19,7 @@ class CleanUpEvent
      * @param array<string, Container> $containers
      */
     public function __construct(
-        public array $containers
+        public array $containers,
     ) {
     }
 }

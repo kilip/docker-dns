@@ -23,7 +23,7 @@ class Server
         public string $url,
         public string $token,
         ?string $name = null,
-        private ?GuzzleClient $guzzle = null
+        private ?GuzzleClient $guzzle = null,
     ) {
         // @codeCoverageIgnoreStart
         if (is_null($this->guzzle)) {

@@ -28,7 +28,7 @@ class ServerRegistry implements \ArrayAccess, \Countable
      */
     public function __construct(
         #[Autowire(param: 'dockerdns.pihole.servers')]
-        array $servers
+        array $servers,
     ) {
         foreach ($servers as $definition) {
             $this->servers[] = new Server(

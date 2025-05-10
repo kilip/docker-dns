@@ -19,6 +19,9 @@ class StartCommandTest extends KernelTestCase
 {
     public function testExecute(): void
     {
+        if (!extension_loaded('pcntl')) {
+            $this->markTestSkipped('PCNTL Extension not Installed');
+        }
         static::bootKernel();
         $app = new Application(static::$kernel);
         $command = $app->find('start');
