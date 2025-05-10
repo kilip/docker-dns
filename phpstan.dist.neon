@@ -5,7 +5,6 @@ parameters:
         - config/
         - public/
         - src/
-        - tests/
     symfony:
         containerXmlPath: var/cache/dev/DockerDNS_KernelDevDebugContainer.xml
         constantHassers: false
@@ -17,3 +16,5 @@ parameters:
     ignoreErrors:
         - message: '#unknown parameter: .*#'
           path: src/Bridge/Docker/Serializer/*
+        - message: '#method_exists.*#'
+          path: tests/bootstrap.php
