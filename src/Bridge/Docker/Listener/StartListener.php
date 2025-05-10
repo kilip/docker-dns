@@ -30,7 +30,7 @@ class StartListener
         private ContainerRepository $repository,
         private EventDispatcherInterface $dispatcher,
         private LoggerInterface $logger,
-        private DockerClient $docker
+        private DockerClient $docker,
     ) {
     }
 

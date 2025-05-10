@@ -26,7 +26,7 @@ class StartCommand extends Command
         private EventDispatcherInterface $dispatcher,
         private LoggerInterface $logger,
         #[Autowire('%env(APP_ENV)%')]
-        private string $env
+        private string $env,
     ) {
         parent::__construct('start');
     }

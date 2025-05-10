@@ -22,7 +22,7 @@ class CNameCollection implements \ArrayAccess
      * @param array<int, CName> $cnames
      */
     public function __construct(
-        public array $cnames
+        public array $cnames,
     ) {
     }
 

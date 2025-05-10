@@ -28,7 +28,7 @@ class CleanUpListener
     public function __construct(
         private ContainerRepository $repository,
         private EventDispatcherInterface $dispatcher,
-        private LoggerInterface $logger
+        private LoggerInterface $logger,
     ) {
     }
 

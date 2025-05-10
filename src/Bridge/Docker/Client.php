@@ -27,7 +27,7 @@ class Client
     private GuzzleClient $guzzle;
 
     public function __construct(
-        ?GuzzleClient $guzzle = null
+        ?GuzzleClient $guzzle = null,
     ) {
         // @codeCoverageIgnoreStart
         if (is_null($guzzle)) {

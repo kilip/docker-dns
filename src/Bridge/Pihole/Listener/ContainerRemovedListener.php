@@ -28,7 +28,7 @@ class ContainerRemovedListener
     public function __construct(
         private ServerRegistry $servers,
         private CNameRepository $repository,
-        private LoggerInterface $logger
+        private LoggerInterface $logger,
     ) {
     }
 

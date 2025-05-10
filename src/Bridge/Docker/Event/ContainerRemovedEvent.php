@@ -16,7 +16,7 @@ use DockerDNS\Bridge\Docker\Entity\Container;
 class ContainerRemovedEvent
 {
     public function __construct(
-        public Container $container
+        public Container $container,
     ) {
     }
 }
