@@ -3,6 +3,7 @@
   "extends": ["local>kilip/renovate-config"],
   "semanticCommits": "enabled",
   "constraints": {
-    "php": "8.3"
+    "php": "8.3",
+    "phpunit/phpunit": "9.6"
   }
 }
