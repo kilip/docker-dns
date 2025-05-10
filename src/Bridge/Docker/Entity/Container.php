@@ -32,6 +32,6 @@ class Container
     /**
      * @var array<string,string>
      */
-    #[ORM\Column(type: 'array')]
+    #[ORM\Column(type: 'simple_array')]
     public array $labels;
 }
