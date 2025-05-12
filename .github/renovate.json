@@ -3,7 +3,13 @@
   "extends": ["local>kilip/renovate-config"],
   "semanticCommits": "enabled",
   "constraints": {
-    "php": "8.3",
     "phpunit/phpunit": "9.6"
-  }
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["badly-versioned-docker-image"],
+      "versioning": "loose"
+    }
+  ]
 }
