@@ -2,7 +2,7 @@
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest@sha256:c2215c570976ebc23ab6688f556a80133d4236dae0bffee678129da4396fbd61
+    image: pihole/pihole:latest@sha256:7f2f90fa59253bce6ec6db15c2bc2296206785da7a5b014780e5837881d86573
     environment:
       WEBPASSWORD: admin
     ports:
