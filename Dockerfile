@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-alpine@sha256:2f6fadb53aef2cb11be792e0c7252313e4920bb39431d7e5b7ac130ebe867eaa
+FROM php:8.5.0alpha2-zts-bullseye@sha256:99d1b9c87a0c9225b5b9ea784249131776c6ae2a32b03f46b506a41e795c7908
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache --virtual \
