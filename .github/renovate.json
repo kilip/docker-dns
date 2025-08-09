@@ -8,8 +8,19 @@
   "packageRules": [
     {
       "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
+    },
+    {
+      "matchDatasources": ["docker"],
       "matchPackageNames": ["php"],
       "versioning": "loose"
+    },
+    {
+      "matchDatasources": ["composer"],
+      "matchPackageNames": ["phpunit/phpunit"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
     }
   ]
 }
