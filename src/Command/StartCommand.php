@@ -11,8 +11,8 @@
 
 namespace DockerDNS\Command;
 
-use DockerDNS\Constants;
 use DockerDNS\Event\StartEvent;
+use DockerDNS\Repository\Constants;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

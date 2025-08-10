@@ -16,7 +16,7 @@ use DockerDNS\Bridge\Docker\DTO\Container;
 use DockerDNS\Bridge\Docker\Docker;
 use DockerDNS\Bridge\Docker\Event\CleanUpEvent;
 use DockerDNS\Bridge\Docker\Repository\ContainerRepository;
-use DockerDNS\Constants;
+use DockerDNS\Repository\Constants;
 use Monolog\Attribute\WithMonologChannel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;

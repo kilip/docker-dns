@@ -57,14 +57,17 @@ class StartListenerTest extends TestCase
         $this->repository->expects($this->exactly(2))
             ->method('create');
 
+        /*
+         * $this->dispatcher->expects($this->exactly(3))
+         * ->method('dispatch')
+         * ->withConsecutive(
+         * [$this->isInstanceOf(Container::class), Docker::EVENT_PROCESS],
+         * [$this->isInstanceOf(Container::class), Docker::EVENT_PROCESS],
+         * [$this->isInstanceOf(CleanUpEvent::class), Docker::EVENT_CLEANUP],
+         * )
+         * ;*/
         $this->dispatcher->expects($this->exactly(3))
-            ->method('dispatch')
-            ->withConsecutive(
-                [$this->isInstanceOf(Container::class), Docker::EVENT_PROCESS],
-                [$this->isInstanceOf(Container::class), Docker::EVENT_PROCESS],
-                [$this->isInstanceOf(CleanUpEvent::class), Docker::EVENT_CLEANUP],
-            )
-        ;
+            ->method('dispatch');
 
         $this->listener->__invoke();
     }

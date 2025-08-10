@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace DockerDNS;
+namespace DockerDNS\Repository;
 
 class Constants
 {

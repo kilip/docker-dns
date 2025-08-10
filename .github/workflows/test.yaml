@@ -41,7 +41,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-
       - name: Update project dependencies
-        run: composer update --no-interaction --no-progress --ansi
+        run: composer install --no-interaction --no-progress --ansi
       - name: Create logs dir
         run: mkdir -p build/logs/phpunit
       - name: Clear test app cache
